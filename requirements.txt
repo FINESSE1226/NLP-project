@@ -1,0 +1,5 @@
+# Pin versions after first successful run: pip freeze > requirements.lock.txt
+llama-index>=0.11.0
+llama-index-llms-ollama>=0.3.0
+llama-index-embeddings-ollama>=0.4.0
+python-dotenv>=1.0.0
