@@ -1,0 +1,28 @@
+ScholarLens 鈥?local verification log (keep for progress / handoff evidence)
+Generated: 2026-04-05
+Machine paths below are from the author鈥檚 PC; teammates should run the same commands from their repo root.
+
+--- python -m compileall -q scholarlens scripts ---
+(exit 0, no output)
+
+--- python scripts/check_env.py ---
+Python: 3.14.3
+llama_index.core: import OK
+Ollama LLM/embedding integrations: import OK
+Ollama OK; models: mistral:latest, qwen2.5:0.5b, nomic-embed-text:latest
+PDFs under data/papers: 1
+manifest.csv: present (176 bytes)
+
+All checks passed.
+
+--- python scripts/build_index.py ---
+Building index from ...\data\papers\manifest.csv -> ...\storage\index ...
+Done.
+
+--- python scripts/query_index.py --paper-id lewis2020_rag "What is RAG in one sentence?" ---
+--- Query ---
+What is RAG in one sentence?
+--- Answer ---
+ RAG, as per the provided context, refers to Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.
+
+All commands exited with code 0.

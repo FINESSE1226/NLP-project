@@ -1,0 +1,12 @@
+# Copy to configs/local.yaml (gitignored) and adjust paths if needed.
+ollama:
+  base_url: "http://127.0.0.1:11434"
+  llm_model: "mistral" # or qwen2.5, etc.
+  embed_model: "nomic-embed-text"
+
+indexing:
+  chunk_size: 256
+  chunk_overlap: 25 # ~10% when chunk_size=256
+  data_dir: "data/papers"
+  manifest: "data/papers/manifest.csv"
+  persist_dir: "storage/index"
