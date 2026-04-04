@@ -53,6 +53,7 @@ Options: `--top-k`, `--persist-dir`, `--llm-model`, `--embed-model`, `--base-url
 - `scripts/build_index.py`, `scripts/query_index.py` — Phase 2 CLI
 - `scripts/minimal_rag_smoke.py` — in-memory smoke test
 - `docs/contract.md` — metadata / eval JSON contract
+- [`docs/team_handoff_checklist.md`](docs/team_handoff_checklist.md) — 小组进度、待办与分工清单（给组员）
 - `configs/default.example.yaml` — reference parameters
 
 ## Branching
