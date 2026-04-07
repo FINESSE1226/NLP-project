@@ -1,0 +1,458 @@
+Lecture 2: Language             Model
+
+        CS6493 Natural Language Processing
+         Instructor: Linqi Song and Chen Ma
+Outline
+
+ ●  1. Language model definition & applications
+ ●  2. Model construction
+     ○  Statistical language models
+     ○  Neural language models
+ ●  3. Language model evaluation
+
+
+                                                                  2
+The famous infinite monkey theorem
+
+  ●  The famous infinite monkey theorem
+       ○  A monkey hitting keys at random on a typewriter keyboard for an infinite amount of time will almost 
+          surely type any given text, such as Hamlet or even the complete works of William Shakespeare.
+       ○  How can we judge the performance of each typing?
+
+
+                                                                                      3
+What is a language model?
+
+ ●  A language model is a probability distribution over sequences of words. Given such a 
+    sequence, say of length T, it assigns a probability 푃(푥(1), 푥(2), … 푥(푇)) to the whole 
+    sequence.
+
+ ●  To determine whether a given ordering of words sounds like natural language.
+
+     E.g., two orderings 
+     ‘NLP is about how machines understand and process natural languages.’
+     ‘machines NLP about languages understand how and is natural process.’
+
+
+                                                                  4
+Another interpretation of a language model
+
+ ●  The task of language models could be regarded as assigning probability to a piece of 
+    text. 
+ ●  For example, consider a piece of text (푥(1), 푥(2), … 푥(푇)), then according to the 
+    Langugage Model, the probability of the text could be written as: 
+
+
+         A language model can also be interpreted as predicting what word comes next
+                                                                  5
+Why we care about language modeling?
+
+●  It serves as a benchmark task that helps us to measure our progress on
+   understanding language
+●  It is a subcomponant of many NLP tasks, especially those involving generating text 
+   and estimating the probability of the text:
+    ○  predictive typing
+    ○  speech recognition
+    ○  handwriting recognition
+    ○  spelling / grammar correction
+    ○  authorship identification
+    ○  machine translation
+    ○  summarization
+    ○  dialogue...
+
+                                                                 6
+Language models in our daily life (1)
+
+
+                                                7
+Language models in our daily          life (2)
+
+Speech recognition
+
+
+        I ate a cherry.                Eye eight uh Jerry.
+
+        Birds can fly in the sky.      Beards can fly in the sky.
+
+        Recognize speech.              Wretch a nice beach.
+
+
+                                                                                     8
+Language modeling
+
+ ●  The task to predict what word comes next.
+
+
+ ●  Given a sequence of words                             ; compute the probability 
+    distribution of the next word            :
+
+
+    where           could be any word in the vocabulary 
+
+ ●  Learning this language model is called Language Modeling.     9
+n-gram model  assumption
+
+●  Markov assumption:            depends only on the preceding n-1 words.
+
+
+●  Get these n-gram and (n-1)-gram probabilities by counting them in some 
+   large corpus of texts.
+
+
+                                                                10
+n-gram model
+
+●  Every word in Σ is assigned some probability, conditoned on a fixed-length history (n 
+   – 1).
+●  An n-gram is a chunk of n consecutive words.
+
+
+                                                                11
+Unigram model
+
+ ●  Every word in the vocabulary Σ is assigned some probability.
+ ●  Random variables 푥(1), 푥(2), … 푥(푇) (one per word).
+
+               1   2    푇     푇     푡  1   2     푡−1    푇     푡
+            푃 푥  , 푥 , … 푥 = Π푡=1푃 푥 |푥  , 푥 , … , 푥 = Π푡=1푃 푥
+                           푥 0 =< 푠 >, starting symbol
+
+    Defficiency of the model: hard to distinguish muiti-word phrases.
+
+    E.g.: “Artificial Intelligence is the electricity for the new era. ”
+
+    Here ‘Artificial’ and ‘Intelligence’ are considered as two separate word, while the semantic 
+    linkage between them are much stronger than other adjacent word pairs in the sentence.
+
+
+                                                                                    12
+Unigram distribution examples
+
+                                      Generate texts by selecting the 
+                                      word with a certain probability as 
+                                      the next output word. 
+
+
+ Probability distribution of a unigram model Text generated from a unigram model 13
+Full history model
+
+●  Every word in Σ is assigned some probability, conditioned on every history.
+
+                  1 2   푇    푇   푡  1  2   푡−1
+               푃 푥 , 푥 , … 푥 = Π푡=1푃 푥 |푥 , 푥 , … , 푥
+
+   A text generation example of a full history model:
+
+
+                                                                14
+Problems with n-gram
+
+
+                                                15
+Sparsity problems with n-gram
+
+                                               Note:
+
+                                               Increasing n makes 
+                                               sparsity problems 
+                                               worse.
+
+                                               Typically we can’t have 
+                                               n bigger than 5.
+
+
+                                                                16
+Storge problems with n-gram
+
+
+Note:
+
+Increasing corpus increases the model size. 
+
+
+                                                                17
+n-gram in text generation
+
+●  A passage generated with a 3-gram model:
+
+
+●  Well grammarly-structured.
+●  But incoherent, as each calculation only considers 3 continuous words.
+●  Yet increasing n brings sparsity and storage problems.
+●  Solution: window-based neural network. 
+
+
+                                                                18
+ A fixed-window neural language model
+Y. Bengio, et al. (2003): A Neural Probabilistic Language Model
+
+                                                              Improvements over n-gram:
+                                                               ●  No sparsity problem
+                                                               ●  Don’t need to store all 
+                                                                  observed n-grams
+
+                                                              Remaining problems:
+                                                               ●  Fixed window is too small.
+                                                               ●  Enlarging window enlarges 
+                                                                  푾; Window can never be 
+                                                                  large enough.
+                                                               ●     and       are multiplied 
+                                                                  by completely different 
+                                                                  weights in 푾. No 
+                                                                  symmetry in how the 
+                                                                  inputs are processed.
+
+                                                                                     19
+One hot encoding and word embeddings
+
+
+   One hot encoding            Word embeddings
+
+                                                20
+Recall of Recurrent Neural Networks (RNNs)
+
+●  Recurrent units: blocks share the structure and parameters (weights)
+●  Flexible input / output size
+●  Self-connections or connections to units in the previous layers
+●  Short-term memory
+
+
+                                                                21
+RNN block
+
+
+                                                22
+RNN   block   concatenation
+
+
+●   Another form: usually use hidden state ℎ푡
+                                                                                    23
+Activation    functions
+
+
+Soft switch
+to control signal flow strength
+                                                  Squash
+                                                  to normalize values to be between 0 and 1
+
+
+                                Activation functions                                24
+RNN-based   language  model
+
+                                           RNN Advantages:
+
+                                            ●  Can process any length input
+                                            ●  Computation for step t can 
+                                               (in theory) use information 
+                                               from many steps back
+                                            ●  Model size doesn’t increase 
+                                               for longer input
+                                            ●  Same weights applied on 
+                                               every timestep, so there is 
+                                               symmetry in how inputs are 
+                                               processed.
+
+                                                                     25
+Training an RNN-LM
+
+●  Get a big corpus of text which is a sequence of words
+●  Feed into RNN-LM; compute output distribution for every step t.
+   i.e., predict probability distribution of every word, given words so far
+●  Loss function on step t: cross-entropy between predicted probability 
+   distribution     , and the true next word      (one-hot for         ): 
+
+
+●  Average the result above to get overall loss for entire training set: 
+
+
+                                                                26
+Training an RNN-LM
+
+●  Computing loss and gradients across entire corpus is too expensive.
+
+
+●  In practice, consider                     as a sentence (document).
+●  Stochastic Gradient Descent (SGD) allows us to compute loss and gradients 
+   for small chunks of data, and update.
+●  Compute loss for a sentence (actually a batch of sentences) using SGD, 
+   compute gradients and update weights. Repeat.
+
+
+                                                                27
+Backpropagation through time
+
+
+●  How to calculate the derivatives of 퐽(휃) with respect to the repeated weight 
+   matrix      through time            ?
+●  Hints: multivariable chain rule.
+
+
+                                                                28
+  Vanishing/Exploding gradient
+
+  Loss function of RNN
+
+                   In the case of a recurrent neural network, the loss function of all time steps is defined 
+                   based on the loss at every time step, e.g., cross entropy loss.
+
+  Backpropagation through time
+
+                   Backpropagation is done at each point in time.
+                   푊: weight matrix
+                   푇: the T-th timestamp
+
+When 푇 is large enough, the result of the multiplied gradient 
+could increase/decrease exponentially with respect to the 
+number of layers, leading to ineffective weight updates. 
+
+Question: What’s the possible influence of gradient vanishing/exploding? 29
+Long-term dependency in NLP
+
+ ●  LM task: When she tried to print her tickets, she found that the printer was out of toner. She went to the 
+    stationery store to buy more toner. It was very overpriced. After installing the toner into the printer, she 
+    finally printed her ________.
+
+
+ ●  To learn from this training example, the model needs to model the dependency between “tickets” on the 
+    7th step and the target word “tickets” at the end.
+ ●  If gradient is small, the model can’t learn this dependency
+ ●  So the model is unable to predict similar long-distance dependencies at test time
+
+
+                                                                                    30
+Long Short-Term Memory (1)
+
+●  Long Short-Term Memory, a special RNN to slove vanish gradient 
+   phenomenon (Hochreiter and Schmidhuber, 1997).
+●  Instead of adding up the history, it uses a set of gating units to control the 
+   memory.
+
+                                               : input gate
+
+                                               : forget gate
+
+                                               : output gate
+
+                                               : new content of input t
+
+                                               : cell state
+
+                                               : hidden state
+
+                                                                31
+Long Short-Term Memory (2)
+
+
+                                                           Source: 
+                                                           http://colah.github.io/posts/201
+                                                           5-08-Understanding-LSTMs/
+
+                                                                                    32
+GRU
+●  A simpler version of LSTM introduced by Cho et al. in 2014
+●  Fewer gates, less computation
+●  Replace the forget gate (   ) with
+●  On each timestep t we have input and hidden state (no cell state).
+
+                                                : input gate
+                                                : reset gate
+                                                : new hidden state content
+                                                : hidden state
+
+
+                                                                33
+How LSTM solves vanishing gradient / long-term dependency?
+
+The LSTM architecture makes it easier for the RNN to preserve information over 
+many timesteps
+
+●  e.g., if the forget gate is set to 1 for a cell dimension and the input gate set to 
+   0, then the information of that cell is preserved indefinitely.
+●  By contrast, it’s harder for traditional RNNs to learn a recurrent weight matrix 
+
+   푊ℎ that preserves info in hidden state.
+Open questions: does LSTM solve the vanishing/exploding gradient problem? 
+Maybe because of its gated design.
+
+
+Refer to Chung, J., Gulcehre, C., Cho, K., & Bengio, Y. (2014). Empirical evaluation of gated recurrent neural networks on sequence 
+modeling. arXiv preprint arXiv:1412.3555.
+                                                                34
+Apply RNN-LM: text generation
+
+ ●   Just like a uni-gram / n-gram Language Model, you can use an RNN Language Model 
+     to generate text by repeated sampling. Sampled output is next step’s input.
+
+
+     The United States will step up to the cost of 
+     a new challenges of the American people “The Malfoys!” said Hermione.
+     that will share the fact that we created the 
+     problem. They were attacked and so that Harry was watching him. He looked like 
+     they have to say that all the task of the final Madame Maxime. When she strode up the 
+     days of war that I will not be able to get this wrong staircase to visit himself...
+     done. ...
+
+     An example generated by Obama-RNN     A Harry Potter chapter generated by LSTM-RNN
+     Source: https://medium.com/@samim/obama-rnn-machine- Source: https://medium.com/deep-writing/harry-potter-written-by-
+     generated-political-speeches-c8abd18a2ea0 artificial-intelligence-8a9431803da6
+                                                                               35
+More examples with RNN-LM
+
+ ●  Recipe generator:
+    https://gist.github.com/nylki/1efbaa36635956d35bcc
+      ○  Follow the typical format of a recipe
+      ○  RNN has the ability to learn the format of materials
+
+ ●  Color name generator:
+    https://colornamer.robertcooper.me/
+      ○  a character-level RNN-LM (predicts what character comes next)
+
+
+                                                                                    36
+Evaluating language models
+
+●  The standard evaluation metrics for LM is perplexity.
+
+
+●  Perplexity can be derived directly from the cross-entropy loss 퐽(휃):
+
+
+●  Lower perplexity is better.                                  37
+Model performance comparison (1)
+
+
+                            Perplexity improves (lower is better)
+
+                                                                38
+     Model performance comparison (2)
+
+
+                                                           LSTM       <   RNN      <  n-gram                 Perplexity improves 
+
+                                                                                                             (lower is better)                 39
+https://engineering.fb.com/2016/10/25/ml-applications/building-an-efficient-neural-language-model-over-a-billion-words/
+    Model performance comparison (3)
+
+
+                                                                                                                  40
+https://paperswithcode.com/sota/language-modelling-on-wikitext-103
+LM in more complex tasks – machine translation
+
+
+                                                41
+LM in more complex tasks - NER
+
+
+                                                42
+LM in more complex tasks - QA
+
+
+                                                43
+LM in more complex tasks - speech recognition
+
+
+                                                44
+Thanks for your attention!
+
+
+                        45

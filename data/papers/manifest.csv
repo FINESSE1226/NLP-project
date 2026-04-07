@@ -1,2 +1,3 @@
 paper_id,title,year,file_name,source_url
 lewis2020_rag,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,2020,lewis2020_rag.pdf,https://arxiv.org/abs/2005.11401
+asai2024_selfrag,"Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",2024,asai2024_selfrag.pdf,https://arxiv.org/abs/2310.11511

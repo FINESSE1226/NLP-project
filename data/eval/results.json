@@ -1,0 +1,17 @@
+[
+  {
+    "question_id": "q1",
+    "question": "What is the primary goal of the RAG model proposed by Lewis et al.?",
+    "generated_answer": " The primary goal of the Retrieval-Augmented Generation (RAG) model proposed by Lewis et al., as described in the paper with title \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\" from 2020, is to address knowledge-intensive Natural Language Processing (NLP) tasks. The RAG model combines a language model and a retrieval component to improve performance on tasks requiring factual information from external sources."
+  },
+  {
+    "question_id": "q2",
+    "question": "In the Self-RAG framework, what role does the critic model play?",
+    "generated_answer": " The critic model in the Self-RAG framework is designed to assess the quality of the generated text by comparing it with the retrieved information. It helps to ensure that the generated output aligns well with the provided context and enhances the overall performance of the system."
+  },
+  {
+    "question_id": "q3",
+    "question": "According to the course materials, what is Natural Language Processing?",
+    "generated_answer": " Natural Language Processing (NLP) refers to a series of steps that convert raw text data into an understandable format. The first step in this process is text preprocessing, which involves cleaning and transforming the data for analysis."
+  }
+]

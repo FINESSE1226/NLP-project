@@ -1,0 +1,17 @@
+[
+  {
+    "question_id": "q1",
+    "question": "What is the primary goal of the RAG model proposed by Lewis et al.?",
+    "target_paper_id": "lewis2020_rag"
+  },
+  {
+    "question_id": "q2",
+    "question": "In the Self-RAG framework, what role does the critic model play?",
+    "target_paper_id": "asai2024_selfrag"
+  },
+  {
+    "question_id": "q3",
+    "question": "According to the course materials, what is Natural Language Processing?",
+    "target_paper_id": null
+  }
+]
