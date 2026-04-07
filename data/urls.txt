@@ -1,0 +1,13 @@
+# Web sources for ScholarLens
+# One URL per line. Lines starting with # are ignored.
+# These URLs will be crawled and indexed alongside papers and course materials.
+
+# LlamaIndex Official Blog - RAG related posts
+https://www.llamaindex.ai/blog/a-cheat-sheet-and-some-recipes-for-building-advanced-rag-803a9d94c41b
+https://www.llamaindex.ai/blog/boosting-rag-picking-the-best-embedding-reranker-models-42d079022e83
+
+# Hugging Face Blog - NLP and RAG
+https://huggingface.co/blog/ray-rag
+
+# ArXiv Blog / Summaries (when available as HTML)
+# Add more URLs as needed for your research topics

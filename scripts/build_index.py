@@ -28,6 +28,8 @@ def main() -> int:
     parser.add_argument("--manifest", type=Path, default=root / "data" / "papers" / "manifest.csv")
     parser.add_argument("--papers-dir", type=Path, default=root / "data" / "papers")
     parser.add_argument("--materials-dir", type=Path, default=root / "data" / "course_materials")
+    parser.add_argument("--urls-file", type=Path, default=root / "data" / "urls.txt",
+                        help="Text file with URLs to crawl (one per line)")
     parser.add_argument("--persist-dir", type=Path, default=root / "storage" / "index")
     parser.add_argument("--base-url", default="http://127.0.0.1:11434")
     parser.add_argument("--llm-model", default="mistral")
@@ -44,12 +46,13 @@ def main() -> int:
         chunk_overlap=args.chunk_overlap,
     )
 
-    print(f"[*] Building index from {args.manifest} and {args.materials_dir} -> {args.persist_dir} ...")
+    print(f"[*] Building index from {args.manifest}, {args.materials_dir}, and {args.urls_file} -> {args.persist_dir} ...")
     build_and_persist(
         manifest_path=args.manifest,
         papers_dir=args.papers_dir,
         persist_dir=args.persist_dir,
         materials_dir=args.materials_dir,
+        urls_file=args.urls_file,
     )
     print("[*] Done.")
     return 0

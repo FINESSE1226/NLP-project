@@ -1,0 +1,212 @@
+[
+  {
+    "question_id": "q1",
+    "type": "factual",
+    "question": "What is the primary goal of the RAG model proposed by Lewis et al.?",
+    "gold_answer": "To combine pre-trained parametric (LLM) and non-parametric (dense vector index) memory for knowledge-intensive NLP tasks.",
+    "generated_answer": " The primary goal of the Retrieval-Augmented Generation (RAG) model proposed by Lewis et al. is to tackle knowledge-intensive Natural Language Processing (NLP) tasks, such as answering questions or summarizing documents, by augmenting a language generation system with retrieval capabilities that enable it to access and incorporate relevant external knowledge during the generation process."
+  },
+  {
+    "question_id": "q2",
+    "type": "factual",
+    "question": "In the Self-RAG framework, what role does the critic model play?",
+    "gold_answer": "The critic model generates reflection tokens to evaluate the quality of retrieved passages and the generated output (IsRel, IsSup, IsUse).",
+    "generated_answer": " The critic model in the Self-RAG framework serves to evaluate the quality of the generated response. It is designed to provide feedback and ensure that the system generates relevant and informative responses. This is achieved through self-reflection, where the system uses its own past experiences to critically assess its current output."
+  },
+  {
+    "question_id": "q3",
+    "type": "factual",
+    "question": "According to the course materials, what is Natural Language Processing?",
+    "gold_answer": "NLP is a field of AI that focuses on the interaction between computers and human language, including understanding, generation, and translation.",
+    "generated_answer": " Natural Language Processing (NLP) is a branch of Artificial Intelligence that makes computers learn, process, and manipulate natural languages to interact with humans."
+  },
+  {
+    "question_id": "q4",
+    "type": "cross_paper",
+    "question": "Compare the retrieval triggers in RAG and Self-RAG. How do they decide when to retrieve?",
+    "gold_answer": "Standard RAG retrieves once at the beginning. Self-RAG uses a critic model to predict 'Retrieve' tokens to decide if and when retrieval is necessary during generation.",
+    "generated_answer": " In the given context, Retrieval-Augmented Generation (RAG) and Self-RAG are two models discussed in the paper titled \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\". However, the text does not provide a direct comparison of their retrieval triggers or how they decide when to retrieve.\n\nTo get more specific details about this, you would need to review the paper itself, focusing on the sections discussing RAG and Self-RAG, particularly how they implement retrieval mechanisms and what triggers them. The source URL provided in the context information can be used to access the full paper for further analysis."
+  },
+  {
+    "question_id": "q5",
+    "type": "reasoning",
+    "question": "What are the main advantages of using a dense vector index over traditional sparse retrieval (like BM25) according to the papers?",
+    "gold_answer": "Dense retrieval captures semantic similarity beyond keyword matching, allowing the model to find relevant context even without exact term overlaps.",
+    "generated_answer": " According to the paper \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\" from 2020, the main advantages of using a dense vector index over traditional sparse retrieval methods like BM25 are as follows:\n\n1. Improved performance on knowledge-intensive tasks due to better representation and modeling of complex relationships between terms.\n2. Reduced computation cost and improved efficiency, especially for large-scale datasets, because of the ability to perform more accurate approximate nearest neighbor search with lower time and space complexity.\n3. Flexibility in modeling various types of knowledge, such as factual knowledge, commonsense knowledge, and world knowledge, by learning dense vector representations that capture these different types of relationships.\n4. Easier integration with neural network models for generating natural language responses or summaries, since the dense vectors can be directly concatenated and fed into the model without requiring complex post-processing steps."
+  },
+  {
+    "question_id": "q6",
+    "type": "factual",
+    "question": "How does Self-RAG handle cases where retrieved passages are irrelevant?",
+    "gold_answer": "It uses reflection tokens (IsRel) to critique the relevance of retrieved nodes and can choose to ignore irrelevant passages or refine the search.",
+    "generated_answer": " Based on the provided context, it is not explicitly mentioned how Self-RAG handles cases where retrieved passages are irrelevant. The paper presents a model that learns to retrieve, generate, and critique through self-reflection, but the details about handling irrelevant information are not provided in the given context."
+  },
+  {
+    "question_id": "q7",
+    "type": "factual",
+    "question": "What is the 'parametric memory' in the context of the RAG paper?",
+    "gold_answer": "The parametric memory refers to the knowledge stored within the weights of the pre-trained seq2seq model (e.g., BART).",
+    "generated_answer": " The context does not provide a specific definition or explanation for the term \"parametric memory\" within the given RAG (Retrieval-Augmented Generation) paper. To find its meaning, it would be necessary to read and analyze the actual content of the paper, specifically section(s) where the concept of parametric memory is introduced."
+  },
+  {
+    "question_id": "q8",
+    "type": "factual",
+    "question": "Based on the course materials (L2), what is a Language Model?",
+    "gold_answer": "A language model is a probabilistic model that assigns probabilities to sequences of words, often used to predict the next token in a sequence.",
+    "generated_answer": " A language model, as per the provided course material, is a concept that falls under the umbrella of Natural Language Processing (NLP). It's a key component in NLP and is used to predict a sequence of words based on their probability distribution. This prediction can be used for various tasks such as language translation, question answering, dialogue, text classification, and knowledge graph construction among others. In the context of the course materials, it is also mentioned that large language models include Transformers, pretraining (e.g., BERT, GPT), prompting, alignment, efficient finetuning, LLM agents, and RAG."
+  },
+  {
+    "question_id": "q9",
+    "type": "factual",
+    "question": "Explain the difference between RAG-Sequence and RAG-Token models.",
+    "gold_answer": "RAG-Sequence uses the same document to generate the entire sequence, while RAG-Token can use different documents for each token's generation.",
+    "generated_answer": " The provided context does not specify the differences between RAG-Sequence and RAG-Token models. These concepts might be discussed in the paper mentioned but without directly referencing or summarizing the content of the paper, it is not possible to explain the difference based on the given context alone."
+  },
+  {
+    "question_id": "q10",
+    "type": "reasoning",
+    "question": "Why is 'reflection' considered an improvement over standard RAG in the Self-RAG paper?",
+    "gold_answer": "Reflection allows the model to self-correct, filter poor retrievals, and ensure the final output is supported by evidence, reducing hallucinations.",
+    "generated_answer": " The Self-RAG paper proposes that incorporating reflection as part of the learning process improves upon standard RAG (Retrieve, Generate, and Critique) by enabling the model to critique its own output and learn from errors. This self-reflective capability allows for more accurate and efficient learning and generation, as the model is able to continually improve its performance through feedback it generates itself. However, for a more detailed explanation, it would be beneficial to directly refer to the source document:\n\n\"Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection\" (ASAI 2024), available at <https://arxiv.org/abs/2310.11511>."
+  },
+  {
+    "question_id": "q11",
+    "type": "factual",
+    "question": "What retrieval model does the original RAG paper use for its non-parametric memory?",
+    "gold_answer": "RAG uses DPR (Dense Passage Retrieval) with a BERT-based bi-encoder to retrieve documents from a dense vector index.",
+    "generated_answer": " The context information does not provide explicit details about the specific retrieval model used in the original RAG (Retrieval-Augmented Generation) paper for its non-parametric memory. However, it is mentioned that the paper uses DPR (Dense Passage Retrieval) for parameterized retrieval and a non-parametric memory which stores candidate passages from the corpus to perform search during decoding. To find out more about the specific non-parametric model used, further investigation would be required by examining the original paper in detail or directly contacting the authors."
+  },
+  {
+    "question_id": "q12",
+    "type": "factual",
+    "question": "What are the three types of reflection tokens in Self-RAG?",
+    "gold_answer": "The three reflection token types are: Retrieve (whether to retrieve), IsRel (relevance of retrieved passage), IsSup (whether output is supported by passage), and IsUse (overall utility).",
+    "generated_answer": " The provided context does not explicitly list the three types of reflection tokens in Self-RAG. However, it can be assumed that the paper \"Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection\" (paper_id: asai2024_selfrag) discusses the use of various reflection tokens for learning and reflection tasks. To learn more about the specific types of reflection tokens in this paper, it would be beneficial to read the actual research paper or refer to its abstract at the provided source URL: <https://arxiv.org/abs/2310.11511>."
+  },
+  {
+    "question_id": "q13",
+    "type": "factual",
+    "question": "What generator model does RAG use as its parametric component?",
+    "gold_answer": "RAG uses BART (Bidirectional and Auto-Regressive Transformers) as its seq2seq generator model.",
+    "generated_answer": " The context does not provide specific details about the generator model used by RAG (Retrieval-Augmented Generation). However, according to the paper, they propose a new framework for knowledge-intensive NLP tasks that combines a retriever and a generator. The generator in their proposed model is trained using a sequence-to-sequence architecture."
+  },
+  {
+    "question_id": "q14",
+    "type": "factual",
+    "question": "How does Self-RAG decide whether retrieval is needed for a given input?",
+    "gold_answer": "Self-RAG uses a trained LM to predict a special 'Retrieve' token that indicates whether additional context from retrieval would be helpful.",
+    "generated_answer": " The provided context does not explicitly explain how Self-RAG decides whether retrieval is needed for a given input. However, based on the title of the paper \"Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection\", it can be inferred that Self-RAG might use some form of self-reflection or evaluation mechanism to determine if the information required for a given input is already available (i.e., retrieval is not needed) or needs to be generated. To get a precise answer, you may need to read the actual paper or relevant sections of it."
+  },
+  {
+    "question_id": "q15",
+    "type": "factual",
+    "question": "What benchmark datasets were used to evaluate RAG in the original paper?",
+    "gold_answer": "RAG was evaluated on open-domain QA datasets including Natural Questions, TriviaQA, WebQuestions, and CuratedTrec.",
+    "generated_answer": " It is not possible for me to directly state specific benchmark datasets used in the paper from the provided context information as I am designed to avoid statements that directly reference the given context. However, the paper's title \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\" suggests that it deals with Natural Language Processing (NLP) tasks, and thus, common benchmark datasets for such tasks could potentially be evaluated in the original paper. To obtain accurate information about specific datasets used in the study, you should directly consult or read the paper."
+  },
+  {
+    "question_id": "q16",
+    "type": "cross_paper",
+    "question": "Compare how RAG and Self-RAG handle hallucination. Which approach is more effective and why?",
+    "gold_answer": "Self-RAG is more effective at reducing hallucinations because it uses reflection tokens to verify if generated content is supported by retrieved evidence, while standard RAG lacks this self-critique mechanism.",
+    "generated_answer": " Based on the provided context, both RAG (Retrieval-Augmented Generation) and Self-RAG are language models that generate responses using retrieval and generation components. However, the information about their performance in handling hallucination or comparing their effectiveness is not explicitly stated in the given context. To answer this question accurately, it would be necessary to consult additional resources or research papers that discuss the specific details of RAG and Self-RAG's approaches to hallucination and compare their performance."
+  },
+  {
+    "question_id": "q17",
+    "type": "factual",
+    "question": "What is the 'non-parametric memory' component in RAG?",
+    "gold_answer": "The non-parametric memory is a dense vector index of documents (like Wikipedia) that can be queried at inference time using DPR.",
+    "generated_answer": " The provided context does not explicitly mention a 'non-parametric memory' component in the described Retrieval-Augmented Generation (RAG) model. Therefore, it cannot be definitively answered based on the given information. It would be necessary to refer to the original paper for a detailed explanation of RAG's components and architecture."
+  },
+  {
+    "question_id": "q18",
+    "type": "factual",
+    "question": "How is Self-RAG trained to generate reflection tokens?",
+    "gold_answer": "Self-RAG is trained using a critic model that provides reflection token labels, which are then used to fine-tune the LM to generate these tokens during inference.",
+    "generated_answer": " The context does not provide explicit details on how Self-RAG is trained to generate reflection tokens. However, it can be inferred that Self-RAG might learn to generate reflection tokens as part of its overall learning process to Retrieve, Generate, and Critique through Self-Reflection, as stated in the title of the paper. For more specific details, it's recommended to read the actual paper mentioned in the context information: <https://arxiv.org/abs/2310.11511>."
+  },
+  {
+    "question_id": "q19",
+    "type": "reasoning",
+    "question": "What problem does RAG solve that standard pre-trained LLMs cannot?",
+    "gold_answer": "RAG addresses the knowledge cutoff problem and hallucination by grounding responses in retrieved documents, allowing access to up-to-date or domain-specific information not in training data.",
+    "generated_answer": " Retrieval-Augmented Generation (RAG) is designed to address knowledge-intensive tasks that standard pre-trained Language Models (LLMs) may not be able to handle effectively. These tasks require a deep understanding of facts and entities from various domains, which RAG addresses by combining retrieval and generation processes."
+  },
+  {
+    "question_id": "q20",
+    "type": "cross_paper",
+    "question": "Compare the training requirements of RAG versus Self-RAG.",
+    "gold_answer": "RAG requires training a retriever and generator jointly. Self-RAG additionally requires training a critic model and fine-tuning the LM to predict reflection tokens, making it more complex to train.",
+    "generated_answer": " Based on the provided context, neither the original paper nor any course materials mention a comparison between the training requirements of RAG (Retrieve, Generate, and Critique) and Self-RAG (Learning to Retrieve, Generate, and Critique through Self-Reflection). Therefore, no information is available for a direct comparison."
+  },
+  {
+    "question_id": "q21",
+    "type": "factual",
+    "question": "What is the IsSup reflection token used for in Self-RAG?",
+    "gold_answer": "IsSup (Is Supported) evaluates whether the generated output is factually supported by the retrieved passage, helping to detect and prevent hallucinations.",
+    "generated_answer": " The context does not provide specific details about the IsSup reflection token used in Self-RAG. However, based on the title of the paper (\"Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection\"), it can be inferred that the Self-RAG model likely involves some form of self-reflection mechanism for learning and improving its performance in tasks related to retrieval, generation, and critique. The IsSup reflection token might be a part of this mechanism, but without more specific information from the paper itself, it's hard to give a definitive answer."
+  },
+  {
+    "question_id": "q22",
+    "type": "factual",
+    "question": "How does RAG combine retrieved documents with the generator?",
+    "gold_answer": "RAG concatenates retrieved document passages with the input query and feeds them to the BART generator, which then produces the output conditioned on both.",
+    "generated_answer": " RAG combines retrieved documents with the generator by using a two-stage approach where the first stage involves retrieving relevant documents from a large corpus, and the second stage involves generating answers based on the retrieved documents in combination with the given input. (Reference: paragraph 2 of the provided paper titled \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\" by Lewis et al., published in 2020.)"
+  },
+  {
+    "question_id": "q23",
+    "type": "reasoning",
+    "question": "What are the key limitations of the standard RAG approach mentioned in the Self-RAG paper?",
+    "gold_answer": "Standard RAG always retrieves regardless of necessity, cannot verify retrieval quality, and lacks mechanisms to ensure generated content is supported by evidence.",
+    "generated_answer": " The text does not explicitly mention specific limitations of the standard RAG (Retrieve, Generate, and Critique) approach as it is focused on introducing Self-RAG. However, it discusses potential challenges that a system like RAG might face, such as generating responses that lack coherence or contain hallucinations, and the need for systems to evaluate their own outputs to improve performance (Section 4.2 of the paper)."
+  },
+  {
+    "question_id": "q24",
+    "type": "factual",
+    "question": "According to the course materials, what are the main tasks in NLP?",
+    "gold_answer": "Main NLP tasks include text classification, named entity recognition, machine translation, question answering, text summarization, and sentiment analysis.",
+    "generated_answer": " The main tasks in Natural Language Processing (NLP) as described in the course materials include Machine translation, question answering, dialogue, text classification, knowledge graph, predictive typing, speech recognition, handwriting recognition, spelling/grammar correction, authorship identification, and summarization."
+  },
+  {
+    "question_id": "q25",
+    "type": "cross_paper",
+    "question": "How do both RAG and Self-RAG utilize external knowledge during inference?",
+    "gold_answer": "Both systems retrieve relevant passages from a document index at inference time. RAG always retrieves, while Self-RAG selectively retrieves based on predicted Retrieve tokens.",
+    "generated_answer": " Both RAG (Retrieve, Generate, and Critique) and Self-RAG (Learning to Retrieve, Generate, and Critique through Self-Reflection), as mentioned in the provided context, are not directly explained in terms of how they utilize external knowledge during inference. However, it is known that RAG uses an external memory module to retrieve relevant information for generating responses, while Self-RAG learns to critically reflect on its own generated responses, which might involve some form of external knowledge comparison or verification. The specific mechanisms and details of how these systems interact with external knowledge during inference are not provided in the given context."
+  },
+  {
+    "question_id": "q26",
+    "type": "factual",
+    "question": "What is marginalization in the context of RAG-Token model?",
+    "gold_answer": "In RAG-Token, marginalization refers to computing the probability of each output token by summing over all retrieved documents, allowing different documents to influence different parts of the output.",
+    "generated_answer": " The provided context does not directly mention \"marginalization\" in relation to the RAG-Token model. Therefore, I cannot provide a specific answer regarding its role or use within the model. The paper title suggests it has something to do with knowledge-intensive NLP tasks, and retrieval-augmented generation, but marginalization is not mentioned in the provided context."
+  },
+  {
+    "question_id": "q27",
+    "type": "reasoning",
+    "question": "Why might Self-RAG choose not to retrieve for certain queries?",
+    "gold_answer": "Self-RAG may skip retrieval when the query can be answered from the model's parametric knowledge alone, or when retrieval is unlikely to provide useful additional context.",
+    "generated_answer": " While the provided context does not explicitly state why Self-RAG might choose not to retrieve for certain queries, it is reasonable to infer that this could occur when the model determines that generating a response without retrieval would be more effective or efficient, or when it encounters a query outside its area of expertise."
+  },
+  {
+    "question_id": "q28",
+    "type": "factual",
+    "question": "What role does the BERT encoder play in the RAG retrieval component?",
+    "gold_answer": "BERT encodes both queries and documents into dense vectors, enabling similarity-based retrieval through maximum inner product search (MIPS).",
+    "generated_answer": " The provided context does not explicitly mention the role of the BERT encoder in the RAG (Retrieval-Augmented Generation) retrieval component. However, it can be inferred that BERT might be used as a pretrained language model to encode and represent text during the retrieval process, but without specific details from the context."
+  },
+  {
+    "question_id": "q29",
+    "type": "cross_paper",
+    "question": "Compare the inference speed implications of RAG versus Self-RAG.",
+    "gold_answer": "RAG always retrieves which adds latency. Self-RAG can be faster when it decides retrieval is unnecessary, but may be slower when it performs multiple retrieval-generation cycles with reflection.",
+    "generated_answer": " The provided context does not contain any information about \"RAG\" or \"Self-RAG\", therefore I'm unable to compare their inference speed implications based on the given data. It seems that these terms are related to Natural Language Processing (NLP), but without additional context or specific definitions, I cannot provide an accurate comparison between them."
+  },
+  {
+    "question_id": "q30",
+    "type": "reasoning",
+    "question": "Based on the papers, what strategies can reduce hallucination in LLM outputs?",
+    "gold_answer": "Strategies include: grounding outputs in retrieved evidence (RAG), using reflection tokens to verify support (Self-RAG), and training models to abstain when uncertain.",
+    "generated_answer": " The provided context does not directly discuss strategies to reduce hallucination in Language Model outputs (LLM). However, it does mention Long Short-Term Memory (LSTM) networks and Gated Recurrent Units (GRU), which are types of Recurrent Neural Networks (RNN) used for Language Modeling. These models have been designed to preserve information over many timesteps and may help in reducing some issues related to long-term dependencies, but they do not specifically address hallucination.\n\nFor a possible solution to reduce hallucinations in LLM outputs, you might want to look into more recent research papers or articles that focus on addressing this issue directly, as it is an active area of research within the Natural Language Processing (NLP) community."
+  }
+]

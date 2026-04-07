@@ -1,0 +1,72 @@
+[
+  {
+    "question_id": "q1",
+    "type": "factual",
+    "question": "What is the primary goal of the RAG model proposed by Lewis et al.?",
+    "gold_answer": "To combine pre-trained parametric (LLM) and non-parametric (dense vector index) memory for knowledge-intensive NLP tasks.",
+    "generated_answer": " The primary goal of the Retrieval-Augmented Generation (RAG) model, as proposed by Lewis et al., is to address knowledge-intensive natural language processing tasks by combining retrieval and generation components."
+  },
+  {
+    "question_id": "q2",
+    "type": "factual",
+    "question": "In the Self-RAG framework, what role does the critic model play?",
+    "gold_answer": "The critic model generates reflection tokens to evaluate the quality of retrieved passages and the generated output (IsRel, IsSup, IsUse).",
+    "generated_answer": " In the Self-RAG framework, the critic model is responsible for evaluating and providing feedback on the generated responses by the other components of the model. It helps in refining the quality of the output by assessing the relevance, coherence, and fluency of the responses."
+  },
+  {
+    "question_id": "q3",
+    "type": "factual",
+    "question": "According to the course materials, what is Natural Language Processing?",
+    "gold_answer": "NLP is a field of AI that focuses on the interaction between computers and human language, including understanding, generation, and translation.",
+    "generated_answer": " Natural Language Processing (NLP) is a branch of Artificial Intelligence that makes computers learn, process, and manipulate natural languages to interact with humans."
+  },
+  {
+    "question_id": "q4",
+    "type": "cross_paper",
+    "question": "Compare the retrieval triggers in RAG and Self-RAG. How do they decide when to retrieve?",
+    "gold_answer": "Standard RAG retrieves once at the beginning. Self-RAG uses a critic model to predict 'Retrieve' tokens to decide if and when retrieval is necessary during generation.",
+    "generated_answer": " The Retrieval-Augmented Generation (RAG) model uses two types of retrieval triggers: explicit and implicit. Explicit triggers are manually defined rules or patterns that the model uses to identify when to initiate a retrieval. Implicit triggers, on the other hand, are learned automatically during training by considering the success of retrieved documents in generating accurate answers. In Self-RAG, the model extends this approach by further automating the process of triggering retrievals through an additional self-distillation mechanism. This mechanism learns to mimic the behavior of RAG, allowing it to decide when to retrieve without relying on manually defined rules or patterns."
+  },
+  {
+    "question_id": "q5",
+    "type": "reasoning",
+    "question": "What are the main advantages of using a dense vector index over traditional sparse retrieval (like BM25) according to the papers?",
+    "gold_answer": "Dense retrieval captures semantic similarity beyond keyword matching, allowing the model to find relevant context even without exact term overlaps.",
+    "generated_answer": " The paper does not specifically compare dense vector indices to traditional sparse retrieval methods like BM25 in terms of their main advantages. However, it does suggest that dense vector indices can be more effective for knowledge-intensive NLP tasks due to their ability to encode rich semantic information and improve the quality of generated responses. This is achieved by allowing the model to retrieve relevant context directly from the retrieved passages rather than relying on external knowledge bases or complex handcrafted rules. Additionally, dense vector indices can handle multiple aspects of a query simultaneously, reducing the need for multiple independent retrieval runs."
+  },
+  {
+    "question_id": "q6",
+    "type": "factual",
+    "question": "How does Self-RAG handle cases where retrieved passages are irrelevant?",
+    "gold_answer": "It uses reflection tokens (IsRel) to critique the relevance of retrieved nodes and can choose to ignore irrelevant passages or refine the search.",
+    "generated_answer": " Based on the provided context, it is not explicitly mentioned in the paper how Self-RAG handles cases where retrieved passages are irrelevant. The paper focuses on a system that learns to retrieve, generate, and critique through self-reflection, but specific mechanisms for handling irrelevant data might be discussed elsewhere within the document or further research could be required to address this concern."
+  },
+  {
+    "question_id": "q7",
+    "type": "factual",
+    "question": "What is the 'parametric memory' in the context of the RAG paper?",
+    "gold_answer": "The parametric memory refers to the knowledge stored within the weights of the pre-trained seq2seq model (e.g., BART).",
+    "generated_answer": " The provided context does not contain explicit details about the 'parametric memory' in the context of the RAG (Retrieval-Augmented Generation) paper. However, based on common machine learning terminology, a parametric memory might refer to a type of memory system where parameters are learned through training data, as opposed to non-parametric models that learn the entire distribution over possible functions. It's recommended to consult the RAG paper itself or other resources for accurate information regarding its specific implementation of parametric memory."
+  },
+  {
+    "question_id": "q8",
+    "type": "factual",
+    "question": "Based on the course materials (L2), what is a Language Model?",
+    "gold_answer": "A language model is a probabilistic model that assigns probabilities to sequences of words, often used to predict the next token in a sequence.",
+    "generated_answer": " A Language Model, as described in the course materials (L1 Introduction to Natural Language Processing), is a component of Natural Language Processing that enables computers to learn, process, and manipulate natural languages. It is a key part of making interactions between computers and humans more efficient and effective. Details on specific language models such as Transformers, pretraining (e.g., BERT, GPT), prompting, alignment, efficient finetuning, LLM agents, RAG, are discussed in greater detail in later sections of the course materials."
+  },
+  {
+    "question_id": "q9",
+    "type": "factual",
+    "question": "Explain the difference between RAG-Sequence and RAG-Token models.",
+    "gold_answer": "RAG-Sequence uses the same document to generate the entire sequence, while RAG-Token can use different documents for each token's generation.",
+    "generated_answer": " The text provided does not directly compare or explain the difference between RAG-Sequence and RAG-Token models. However, based on the context of the paper titled \"Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks\" (lewis2020_rag), we can infer that both RAG-Sequence and RAG-Token are approaches to improve the performance of knowledge-intensive natural language processing tasks.\n\nIn general, RAG-Sequence model likely refers to a method where the retrieval process is applied on sequences of words or sentences (also known as documents) to augment the generation process. On the other hand, RAG-Token model may involve applying the retrieval process at the token level (individual words), thereby focusing on specific terms during the generation process.\n\nTo obtain a more detailed comparison, it is necessary to read the paper or further research the topic."
+  },
+  {
+    "question_id": "q10",
+    "type": "reasoning",
+    "question": "Why is 'reflection' considered an improvement over standard RAG in the Self-RAG paper?",
+    "gold_answer": "Reflection allows the model to self-correct, filter poor retrievals, and ensure the final output is supported by evidence, reducing hallucinations.",
+    "generated_answer": " The provided context does not explicitly state why 'reflection' is considered an improvement over standard RAG in the Self-RAG paper. However, based on the title and the fact that Self-RAG learns to Retrieve, Generate, and Critique through Self-Reflection, it can be inferred that incorporating reflection into the system may enable it to better understand and evaluate its own decisions or outputs, leading to improved performance compared to standard RAG. To obtain a definitive answer, one would need to read and analyze the paper itself."
+  }
+]

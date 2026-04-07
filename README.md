@@ -31,12 +31,17 @@ Quick diagnostics (no LLM calls): `python scripts/check_env.py`
 1. List each paper in [`data/papers/manifest.csv`](data/papers/manifest.csv) (`paper_id`, `title`, `year`, `file_name`, `source_url`).
 2. Place matching PDFs in `data/papers/`.
 3. **Secondary Sources**: Place any `.md` or `.txt` files in `data/course_materials/`.
-4. Build the integrated index:
+4. **Web Sources** (optional): Add URLs to [`data/urls.txt`](data/urls.txt) (one per line, `#` for comments).
+5. Build the integrated index:
 
 ```bash
-python scripts/build_index.py
+python scripts/build_index.py --chunk-size 512 --persist-dir storage/index_512
 ```
-*Note: The script now automatically detects and indexes materials in the `course_materials` directory alongside the research papers.*
+
+The script automatically indexes:
+- Papers from `manifest.csv`
+- Course materials from `data/course_materials/`
+- Web pages from `data/urls.txt` (using BeautifulSoupWebReader)
 
 ### Query the persisted index
 
@@ -56,23 +61,76 @@ Compare methodologies or results between two specific papers using stratified re
 python scripts/compare_papers.py --id1 lewis2020_rag --id2 asai2024_selfrag --query "Compare the retrieval strategies of RAG and Self-RAG."
 ```
 
+### Interactive Chat Agent (Multi-turn Conversation)
+Start an interactive chat session with conversation memory:
+
+```bash
+python scripts/chat_agent.py
+python scripts/chat_agent.py --persist-dir storage/index_512 --top-k 5
+```
+
+Commands during chat:
+- `exit` / `quit` — End the conversation
+- `clear` — Clear conversation history
+- `history` — View conversation history
+
+The chat agent uses `ChatMemoryBuffer` to maintain context across multiple turns, allowing follow-up questions like:
+- "What is RAG?" → "Can you explain its limitations?" → "How does Self-RAG address them?"
+
 ### Automated Evaluation
 Run the batch evaluation pipeline using the questions defined in `data/eval/questions.json`:
 
 ```bash
-python scripts/run_eval.py --questions data/eval/questions.json --output data/eval/results.json
+python scripts/run_eval.py --persist-dir storage/index_512 --output data/eval/results_512.json
 ```
+
+### LLM-as-a-Judge Scoring
+Score generated answers against gold answers using an LLM judge:
+
+```bash
+python scripts/score_eval.py --input data/eval/results_512.json --output data/eval/scores_512.json
+```
+
+This produces quantified metrics:
+- Overall average score (1-5 scale)
+- Scores breakdown by question type (factual, cross_paper, reasoning)
+- Individual question scores with explanations
+
+### Web UI Demo
+Launch the interactive Streamlit interface for a visual demonstration:
+
+```bash
+streamlit run scripts/app_ui.py
+```
+
+Open http://localhost:8501 in your browser. Features:
+- Multi-turn chat with conversation history
+- Index selection (256/512 chunk sizes)
+- Source citation display (shows retrieved passages)
+- Adjustable Top-K retrieval
 
 ## Layout
 
 - `scholarlens/` — package: [`manifest.py`](scholarlens/manifest.py), [`indexing.py`](scholarlens/indexing.py), [`ollama_config.py`](scholarlens/ollama_config.py)
-- `scripts/` — CLI tools: `build_index.py`, `query_index.py`, `compare_papers.py`, `run_eval.py`, `check_env.py`
+- `scripts/` — CLI tools: `build_index.py`, `query_index.py`, `chat_agent.py`, `compare_papers.py`, `run_eval.py`, `score_eval.py`, `check_env.py`, `app_ui.py`
 - `data/` — data storage:
   - `papers/`: PDF files and `manifest.csv`
   - `course_materials/`: `.md` and `.txt` secondary sources
-  - `eval/`: `questions.json` and generated `results.json`
+  - `urls.txt`: Web URLs to crawl (tech blogs, documentation)
+  - `eval/`: `questions.json` (30 test questions) and generated results/scores
 - `docs/contract.md` — metadata / eval JSON contract
 - `configs/default.example.yaml` — reference parameters
+
+## Experiment Results
+
+Chunk size comparison on 30 evaluation questions (LLM-as-a-Judge scoring):
+
+| Configuration | Avg Score | Factual | Reasoning | Cross-paper |
+|---------------|-----------|---------|-----------|-------------|
+| Chunk 256, Top-K 5 | 3.03 / 5 | 3.11 | 3.00 | 2.80 |
+| **Chunk 512, Top-K 5** | **3.47 / 5** | **3.53** | **3.67** | **3.00** |
+
+**Recommendation**: Use `--chunk-size 512` for academic paper QA tasks.
 
 ## Branching
 
@@ -84,7 +142,8 @@ Use short-lived `feature/*` branches; merge only after smoke or build+query pass
 2. Start Ollama; `ollama pull nomic-embed-text` and a chat model (e.g. `mistral`).
 3. Ensure at least one PDF listed in `data/papers/manifest.csv` exists under `data/papers/`.
 4. `python scripts/check_env.py` — should print "All checks passed."
-5. `python scripts/build_index.py` — creates `storage/index/` (folder is gitignored; **rebuild after clone**).
-6. Run `python scripts/run_eval.py` to verify the evaluation pipeline.
+5. `python scripts/build_index.py --chunk-size 512 --persist-dir storage/index_512` — creates optimized index (folder is gitignored; **rebuild after clone**).
+6. Run `python scripts/run_eval.py --persist-dir storage/index_512` to verify the evaluation pipeline.
+7. Try `python scripts/chat_agent.py` for interactive multi-turn Q&A.
 
 Sample successful console output is kept under [`docs/evidence/sample_run_log.txt`](docs/evidence/sample_run_log.txt). **Do not delete** team-provided log or evidence files used for progress reports.
