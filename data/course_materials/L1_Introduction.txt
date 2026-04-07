@@ -1,0 +1,697 @@
+   Lecture 1: Introduction to 
+Natural Language Processing
+
+          CS6493 Natural Language Processing
+            Instructor: Linqi Song, Chen Ma
+Outline
+
+• 0. Course logistics
+• 1. Recent applications
+• 2. History of NLP
+• 3. Challenges
+• 4. How NLP works?
+
+
+                                                    2
+What is Natural Language Processing?
+
+• A branch of Artificial Intelligence.
+• Make computers to learn, process and 
+ manipulate natural languages to interact 
+ with humans.  
+
+
+                                                    3
+Bird’s-eye view of this course
+
+• Basics: Linguistics, language models, word embeddings
+
+• Tasks: Machine translation, question answering, dialogue, text 
+ classification, knowledge graph
+
+• Large language models: Transformers, pretraining (e.g., BERT, GPT), 
+ prompting, alignment, efficient finetuning, LLM agents, RAG
+
+
+                                                    4
+Instruction pattern
+
+• 3-hour in-class learning
+   • 2-hour lecture
+      • Cover main topics of the course
+   • 1-hour tutorial 
+      • In-class hands-on ability, discussions, presentations, etc.
+• After class
+   • Homework assignments and projects
+   • Reading recent advances of NLP, implementation details, 
+   • Papers, technical blogs, GitHub, etc.
+• QA
+   • Canvas -> discussions is most preferred
+   • Email for more personalized questions
+   • TAs for hands-on issues
+
+
+                                                                   5
+Teaching team
+
+• Prof. Linqi Song
+    • Yeung-Y6415, linqi.song@cityu.edu.hk
+• Prof. Chen Ma
+    • Yeung-Y6423, chenma@cityu.edu.hk
+
+• TAs
+    • Mr. Mingyang Liu (Lead TA, mingyaliu8-c@my.cityu.edu.hk),
+    • Mr. Hanlin Zhang (Lead TA, hanlzhang8-c@my.cityu.edu.hk).
+    • Mr. Guanzhi Deng (guanzdeng2-c@my.cityu.edu.hk),
+    • Ms. Yuxuan Yao (yuxuanyao3-c@my.cityu.edu.hk),
+    • Mr. Weichuan Wang (weicwang2-c@my.cityu.edu.hk),
+    • Mr. Jilin Cao (jilincao2-c@my.cityu.edu.hk),
+    • Mr. Yunhe Li (yunheli4-c@my.cityu.edu.hk),
+    • Mr. Zhuo Han (zhuohan3-c@my.cityu.edu.hk).
+
+
+                                                                                    6
+Assessment
+
+• Continuous assessment (60%)
+   • 2 individual homework assignments (each 15%)
+      • Programming to implement simple NLP tasks
+   • 1 group project with presentations for team-based learning(30%)
+      • Form a group of 1-8 students (before Week 5)
+      • Select one topic among several given topics
+      • Do experiments and show your innovation and novelty
+      • Midterm reports & final reports + codes + others (datasets, proofs, figures, etc.)
+      • Presentation (Weeks 13, 10-min presentation plus 2-min Q&A)
+• Final exam (40%)
+
+
+                                                                       7
+Schedule
+
+
+                                8
+Resources
+
+• Reference books
+   • [R1] Speech and Language Processing: An Introduction to Natural Language Processing, 
+     Computational Linguistics, and Speech Recognition, 3rd Edition, 2020, by Daniel Jurafsky and 
+     James H. Martin. https://web.stanford.edu/~jurafsky/slp3/ed3book.pdf
+   • [R2] Natural Language Processing, 2018, by Jacob Eisenstein. 
+     https://cseweb.ucsd.edu/~nnakashole/teaching/eisenstein-nov18.pdf
+• Computing resources
+   • Jupyterhub or Google’s Colab for tutorials, home assignments and group projects.
+      • https://colab.research.google.com/
+      • For large-scale computing, we can use Google Cloud Platform (GCP) with your @gapps.cityu.edu.hk
+        account (https://www.cityu.edu.hk/csc/deptweb/support/faq/email/gapps_faq.htm): 
+        https://console.cloud.google.com (Project xxx – Vertex AI – Colab Enterprise)
+   • Other resources: Kaggle (kaggle.com/notebooks), other online resources, CS Lab MMW 2462
+• Other online courses
+
+
+                                                                       9
+How to learn this course well?
+
+• Higher-level postgraduate courses
+  • What problems to solve?
+  • How to approach the problem?
+  • Systematic ideas instead of details
+• This NLP course
+  • Get your hands dirty, as it is mainly about how to implement machine 
+    learning algorithms for linguistic applications
+  • Follow recent academic and industrial advances
+  • Discuss with others
+
+
+                                                          10
+   ChatGPT
+• ChatGPT (Generative Pre-trained Transformer) is a chatbot 
+ launched by OpenAI on November 30, 2022. It is built on 
+ top of OpenAI's GPT-3.5 family of large language models 
+ and is fine-tuned with both supervised and reinforcement 
+ learning techniques. ChatGPT was quickly garnered 
+ attention for its detailed responses and articulate answers 
+ across many domains of knowledge.
+
+
+                                                                         11
+    NLP in our life
+
+
+                                                                         Auto-complete: In 
+                                                                         search engines 
+Virtual Assistants:                                                      (e.g. Google).
+Siri, Cortana, and 
+Google Assistant.
+
+
+                                                                                  12
+Search autocorrect and autocomplete
+
+
+• Correct typos and shows possible 
+ search terms.
+• Help us in finding accurate results 
+ much efficiently. 
+• Language models.
+
+
+                                                    13
+Language translator (machine translation)
+
+• Automatically converting the text in one language to another language 
+  while keeping the meaning intact.
+
+
+                                                      14
+Social media analysis
+
+• Users’ likes and dislikes → Generate valuable insights
+• If you are also excited about leveraging the natural 
+ language processing for monitoring social media, 
+ then here are few articles to start your journey:
+  • Comprehensive Hands-on Guide to Twitter Sentiment 
+    Analysis with dataset and code
+  • Measuring Audience Sentiments about Movies using 
+    Twitter and Text Analytics
+  • Sentiment Analysis of Twitter Posts on Chennai Floods 
+    using Python
+
+
+                                                          15
+Grammar checkers
+
+• Grammarly, correct grammar, spellings, suggest better synonyms, and 
+ help in delivering content with better clarity and engagement. 
+
+
+                                                    16
+Email filtering
+
+• Whenever a mail arrives, it gets classified into the 
+ sections of primary, social, and promotions.
+• Filtered using text classification, classification of a piece 
+ of text into pre-defined categories.
+• Here are few resources to getting you started with text 
+ classification:
+  • A Comprehensive Guide to Understand and Implement Text 
+   Classification in Python
+  • Tutorial on Text Classification (NLP) using ULMFiT and fastai
+   Library in Python
+  • Build Your First Text Classification model using PyTorch
+
+                                                    17
+Virtual assistants 
+
+• Understands voice commands and completes 
+ tasks for a user. 
+• Alexa, Siri, Google Assistant, Cortana, Bixby
+• Using Artificial Intelligence (AI), they 
+ understand natural language, recognize faces, 
+ identify objects, and communicate with other 
+ smart devices and software.
+
+
+                                                    18
+NLP history (1)
+
+
+                               19
+NLP history (2)
+
+• 1940s: machine translation
+   • Possibility of using computers to translate documents between 
+    natural human languages in March 1947 in a letter to the Warren Weaver
+    cyberneticist Norbert Wiener.
+   • "Translation" memorandum — Weaver's memorandum in 1949
+• Ideas: more fruitful methods than any simplistic word-for-
+ word approach
+   • The problem of multiple meanings might be tackled by the 
+    examination of immediate context
+   • Formal logic: inspired by work on an early type of neural 
+    networks by McCulloch and Pitts
+   • Cryptographic methods were possibly applicable to translation 
+    (from cryptography and information theory)
+   • Linguistic universals underlying all human languages which could 
+    be exploited to make the problem of translation more 
+    straightforward
+
+                                                                  20
+NLP history (3)
+
+• 1950s: Turing test
+   • A judge to distinguish either the answer is from 
+     a human being or a machine
+                                             Noam Chomsky        Alan Turing
+• Noam Chomsky
+   • Syntactic Structures and universal grammar
+   • If human beings are brought up under normal 
+     conditions then they will always develop 
+     language with certain properties (e.g., 
+     distinguishing nouns from verbs, or 
+     distinguishing function words from content 
+     words). 
+   • The theory proposes that there is an innate, 
+     genetically determined language faculty that 
+     knows these rules, making it easier and faster 
+     for children to learn to speak than it otherwise 
+     would be.
+
+
+                                                                      21
+NLP history (4)
+
+• 1960s and 1970s: many rule-based NLP systems 
+• Chatterbot: 
+   • In 1964, ELIZA, a “typewritten” comment and response 
+    process, designed to imitate a psychiatrist using reflection 
+    technique was developed.
+   • PARRY was an early example of a chatbot, implemented in 
+    1972 by psychiatrist Kenneth Colby.
+• Natural language understanding
+   • SHRDLU was developed by Terry Winograd at MIT in 1968–
+    1970. The user carries on a conversation with the 
+    computer, moving objects, naming collections and querying 
+    the state of a simplified "blocks world", essentially a virtual 
+    box filled with different blocks.
+
+
+                                                                  22
+ NLP history (5)
+• AI-“Winter”
+   • In 1966, ALPAC halted the research funding in NLP, as no significant achievements in 
+    contemporary NLP projects, especially in machine translation.
+   • Until the 1980s, most NLP systems used complex, “handwritten” rules.
+• 1980s and 1990s: statistical NLP
+   • In the late 1980s, a revolution in NLP came about with the adoption of inchoate machine 
+    learning algorithms and statistical models (e.g., decision trees and hidden Markov 
+    models, supervised/unsupervised learning).
+   • In the 1990s, pure statistics NLP methods have become remarkably valuable in keeping 
+    pace with the tremendous flow of online text.
+
+
+                                                                   23
+NLP history (6)
+
+• 1990s – 2010s: statistical NLP towards neural NLP
+  • In the 1990s, N-Grams were found useful in numerically recognizing and 
+    tracking clumps of linguistic data.
+  • In 1997, LSTM Recurrent Neural Net (RNN) models were introduced.
+  • In 2001, Yoshio Bengio and his team proposed the first neural “language” 
+    model, using a feed-forward neural network.
+  • In the year 2011, Apple’s Siri became known as one of the world’s first 
+    successful NLP/AI assistants to be used by general consumers.
+
+
+                                                          24
+NLP history (7)
+
+• Neural NLP:
+   • In 2008, Collobert and Weston first applied multi-task learning to NLP, and spearheaded ideas 
+     of pretraining.
+   • In 2013, Mikolov et al. proposed the efficient word embeddings, word2vec.
+   • In 2014, Sutskever et al. proposed sequence-to-sequence learning, a general framework for 
+     mapping one sequence to another one using a neural network.
+   • In 2015, Bahdanau et al., put forward the attention mechanism, which is one of the core 
+     innovations in NLP.
+   • From 2015 onwards, memory-based networks have been proposed in the field of NLP, 
+     including
+      • Neural Turing Machines (Graves et al., 2014)
+      • Memory Networks (Weston et al., 2015)
+      • End-to-end Memory Networks (Sukhbaatar et al., 2015)
+      • Dynamic Memory Networks (Kumar et al., 2015)
+      • Neural Differentiable Computer (Graves et al., 2016)
+      • Recurrent Entity Network (Henaff et al., 2017)
+
+
+                                                                      25
+NLP history (8)
+
+• Recent advances: pretraining-finetuning and large language models
+  • Since 2018, the adoption of pre-trained language models obtain impressive 
+    enhancement in performance across a variety of different NLP tasks. Some 
+    common pre-trained models are:
+     • ELMo
+
+     • BERT and its variants
+
+     • GPT-2, GPT-3, ChatGPT
+
+
+                                                          26
+Why is NLP challenging?
+
+• Ambiguity:
+  • Similar strings mean different things, different strings 
+   mean the same thing.
+• Context
+• Commonsense knowledge
+
+
+                                            27
+Similar strings mean different things
+
+
+     Do you sell Sony laptops and disk drives?
+
+     Do you sell (Sony (laptops and disk drives))?
+
+     Do you sell (Sony laptops) and disk drives)?
+
+
+                                                    28
+Different strings mean the same thing
+
+
+     1. How fast is the dish?
+
+     2. How fast will my dish arrive?
+
+     3. Please tell me when I can expect the dish I ordered.
+
+
+                                                    29
+Context: word senses
+
+Bill Gates has developed an interest (1) in language technology and yesterday acquired a 10% interest (5) in 
+Torbjorn Lager’s sense disambiguation technology. Lager will retain 90% interest (5) in the new company. Last 
+year’s drop in interest (6) rates will probably be good for the company. Finally, although all this may sound like 
+an arcane maneuver of little interest (2) outside Wall Street, it would set off an economical earthquake.
+
+Here, “interest” has 6 senses, but we need to determine them in the context.
+
+
+                                                                              30
+Commonsense knowledge
+
+1. The sofa didn't fit through the door because it was too narrow. 
+
+
+2. The sofa didn't fit through the door because it was too wide.
+
+
+The sentence structures are the same, but ‘it’ refers to different 
+meanings.
+
+
+                                                    31
+How NLP works? 
+
+• First step of NLP is text preprocessing, a data mining technique that 
+ involves transforming the raw data into an understandable format.
+
+• Before encoding text into numeric vector, we first need to clean the 
+ text data .
+
+• Process to prepare(or clean) text data before encoding is called text 
+ preprocessing.
+
+
+                                                    32
+Preprocessing of data -    Tokenization
+
+• Tokenization is the process of breaking up text document into 
+ individual words called tokens.
+
+• Tokens can be either words, characters, or sub-words.
+
+
+                                                    33
+Preprocessing of data -    Stop words removal
+
+• Stop words are common words that do not contribute much of the 
+ information in a text document. Words like ‘the’, ‘is’, ‘a’ have less 
+ value and add noise to the text data.  “NLTK”
+
+
+                                                    34
+Preprocessing of data -    Stemming
+
+• Stemming is the process of reducing a word to its stem/root word. It 
+ reduces inflection in words (e.g. ‘help’, ’helping’, ’helped’, ’helpful’) to 
+ their root form (e.g. ‘help’). It removes the morphological affixes from 
+ words, leaving only the word stem.
+• A crude heuristic process that chops off the ends of words in the 
+ hope of correctly transforming words into its root form. So the words 
+ “trouble”, “troubled” and “troubles” might actually be converted 
+ to troubl instead of trouble because the ends were just chopped off.
+• Porters Algorithm: empirically effective for English
+
+
+                                                    35
+Preprocessing of data -     Stemming
+
+• The stem word may or may not be a valid word in the language. For 
+  example ‘movi’ is the root word for ‘movie’, ‘emot’ is the root word for 
+  ‘emotion’.
+
+
+                                                      36
+Preprocessing of data -    Lemmatization
+
+• Lemmatization does the same thing as stemming, converting a word 
+ to its root form but with one difference, i.e., the root word in this 
+ case belongs to a valid word in the language. For example the word 
+ caring would map to ‘care’ and not ‘car’ as the in case of stemming.
+
+
+          a) Stemming              b) Lemmatization
+                                                    37
+Preprocessing of data -    Lemmatization
+
+• WordNet is a database of valid words in English language. NLTK’s 
+ WordNetLemmatizer() uses valid words from WordNet.
+
+
+                                                    38
+Parts of Speech (PoS) tagging
+
+• PoS Tagging, also known as grammatical 
+ tagging or word category 
+ disambiguation. It’s used to categorize 
+ words in a text or a document to their 
+ corresponding parts of speech based on 
+ both its definition and its context (with 
+ its adjacent and related words in a 
+ phrase).
+
+• Common POS tag sets
+  Universal POS Tags: 
+  https://universaldependencies.org/u/pos/
+
+
+                                                          39
+Preprocessing of data -       N-grams
+
+• N-grams are the combination of multiple words used together, N-grams with N=1 
+ are called unigrams. Similarly, bigrams (N=2), trigrams (N=3) and so on.
+• N-grams can be used when we want to preserve sequence information in the 
+ document.
+
+
+                                                          40
+Preprocessing of data -       N-grams
+
+• How many N-grams in a sentence?
+
+  • If X=Num of words in a given sentence K, the number of n-grams for sentence 
+    K would be:
+
+
+                   푁푔푟푎푚푠퐾 = 푋 − (푁 − 1)
+
+
+                                                          41
+Textual data vectorization
+
+• The process of converting text into numbers is called text data 
+ vectorization. Now after text preprocessing, we need to numerically 
+ represent text data i.e., encoding the data in numbers which can be 
+ further used by algorithms.
+
+
+                                                    42
+Bag of words (BOW)
+
+• Bag of words is one of the simplest text vectorization techniques. 
+• Intuition: two sentences are similar if they contain similar set of 
+ words.
+• Consider 3 movie reviews:
+   • Review 1: This movie is very scary and long
+   • Review 2: This movie is not scary and is slow
+   • Review 3: This movie is spooky and good
+• Vocabulary from all unique words in 3 reviews, 11 words: 
+   • ‘This’, ‘movie’, ‘is’, ‘very’, ‘scary’, ‘and’, ‘long’, ‘not’, ‘slow’, ‘spooky’, ‘good’.
+
+
+                                                    43
+  Bag of words (BOW)
+
+
+             1       2      3       4       5       6       7      8       9       10      11    Length of the 
+            This   movie    is     very   scary    and    long    not     slow   spooky   good   review (in 
+                                                                                                 words)
+Review 1     1       1      1       1       1       1       1      0       0       0        0          7
+
+Review 2     1       1      2       0       1       1       0      1       1       0        0          8
+
+Review 3     1       1      1       0       0       0       1      0       0       1        1          6
+
+     • Drawbacks:                                                  • Vector of Review 1: [1 1 1 1 1 1 1 0 0 0 0]
+         •  Vector length = vocabulary size.                       • Vector of Review 2: [1 1 2 0 0 1 1 1 1 0 0]
+         •  Sparse metric with many 0s.                            • Vector of Review 3: [1 1 1 0 0 0 1 0 0 1 1]
+         •  Retain no grammar or ordering information.
+
+
+                                                                                                         44
+Term Frequency-Inverse Document 
+Frequency (TF-IDF)
+
+• In NLP tasks, each text sentence is called a document and collection of 
+ such documents is referred to as text corpus.
+
+• Wikipedia: “Term frequency–inverse document frequency, is a 
+ numerical statistic that is intended to reflect how important a word is 
+ to a document in a collection or corpus.”
+
+
+                                                    45
+Term Frequency-Inverse Document 
+Frequency (TF-IDF)
+• Term Frequency, a measure of how frequently a term 푡         appears in a 
+ document 푑:
+                                         푛
+                       푡   =              푡,푑
+                        푓푡,푑 푁푢푚푏푒푟 표푓 푡푒푟푚푠 𝑖푛 푡ℎ푒 푑표푐푢푚푒푛푡
+
+• 푛푡,푑 is the number of times the term 푡     appears in the document 푑. 
+
+
+                                               Review 1: This movie is very scary and long
+                                               Review 2: This movie is not scary and is slow
+                                               Review 3: This movie is spooky and good
+
+
+                                                                              46
+Term Frequency-Inverse Document 
+Frequency (TF-IDF)
+• Inverse Document Frequency (IDF): a measure of how important a 
+ term is. 
+                                   푛푢푚푏푒푟 표푓 푑표푐푢푚푒푛푡푠
+                      𝑖푑 = log
+                        푓푡    푛푢푚푏푒푟 표푓 푑표푐푢푚푒푛푡푠 푤𝑖푡ℎ 푡푒푟푚 "푡"
+
+
+                                            Review 1: This movie is very scary and long
+                                            Review 2: This movie is not scary and is slow
+                                            Review 3: This movie is spooky and good
+
+                                            • IDF(‘this’) = log(number of documents / 
+                                              number of documents containing the word 
+                                              ‘this’) = log(3/3) = log(1) = 0
+                                            • Little importance: “is”, “this”, “and”
+                                            • More importance: “scary”, “long”, “good” 
+                                                                              47
+Term Frequency-Inverse Document 
+Frequency (TF-IDF)
+
+• TF-IDF score, words with a higher score are more important.
+
+                          (푡푓_𝑖푑푓)푡,푑= 푡푓푡,푑 ∗ 𝑖푑푓푡
+• TF-IDF also gives larger values for less frequent words and is high when both IDF and TF 
+ values are high, i.e., the word is rare in all the documents combined but frequent in a 
+ single document.
+
+                                         Review 1: This movie is very scary and long
+                                         Review 2: This movie is not scary and is slow
+                                         Review 3: This movie is spooky and good
+
+
+                                                                  48
+Thanks for your attention!
+
+
+                      49
+Appendix: tokenization
+
+
+                               50
+Tokenization  -  Word Tokenization
+• Word Tokenization splits a piece of text into 
+ individual words based on a certain delimiter.
+• Drawbacks: Out Of Vocabulary (OOV) words, 
+ these are new words encountered at testing that 
+ do not exist in the vocabulary (set of tokens).
+• Trick to solve OOV: 
+  • Form the vocabulary with the Top K Frequent Words 
+   and replace the rare words in training data 
+   with unknown tokens (UNK).
+  • mapping OOV to UNK tokens makes every OOV word 
+   gets the same representation.
+  • explodes the vocabulary.
+                                                    51
+Tokenization  -  Character Tokenization
+
+• Character Tokenization splits a piece of 
+ text into a set of characters. It overcomes 
+ the drawbacks we saw above about Word 
+ Tokenization.
+• It breaks down the OOV word into 
+ characters and represents the word in 
+ terms of these characters.
+• Take a guess on the size of vocabulary?
+
+• Drawbacks: the length of the input and     Vocabulary Size:
+ output sentences increases.                     26
+
+                                                    52
+Tokenization  -  Subword    Tokenization
+
+• Subword Tokenization splits the piece of text into subwords (or n-
+ gram characters). For example, words like lower can be segmented as 
+ low-er, smartest as smart-est, and so on.
+
+• Transformer-based models– the SOTA in NLP – rely on Subword
+ Tokenization algorithms for preparing vocabulary. 
+
+• Welcome to Byte Pair Encoding (BPE).
+
+
+                                                    53
+Welcome to Byte Pair Encoding (BPE).
+
+• Byte Pair Encoding (BPE) is a widely used tokenization method among 
+ transformer-based models. BPE addresses the issues of Word and 
+ Character Tokenizers:
+  • BPE tackles OOV effectively. It segments OOV as subwords and represents the 
+    word in terms of these subwords
+  • The length of input and output sentences after BPE are shorter compared to 
+    character tokenization
+
+
+                                                          54
+Welcome to Byte Pair Encoding (BPE).
+
+• BPE is a word segmentation algorithm that merges the most 
+ frequently occurring character or character sequences iteratively. 
+ Here is a step by step guide to learn BPE.
+• Steps to learn BPE
+  • Split the words in the corpus into characters after appending </w>
+  • Initialize the vocabulary with unique characters in the corpus
+  • Compute the frequency of a pair of characters or character sequences in 
+    corpus
+  • Merge the most frequent pair in corpus
+  • Save the best pair to the vocabulary
+  • Repeat steps 3 to 5 for a certain number of iterations
+
+                                                          55
+                                          2. Initialize the vocabulary:
+       BPE
+
+
+         Consider a corpus      1a) Append </w> to each word  1b) Tokenize words into characters
+
+            …
+Repeat steps 3-5 for every iteration 
+
+
+        5. Save the best pair 4. Merge the most frequent pair      3. Compute frequency: 56

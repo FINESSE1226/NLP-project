@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Optional
 
 from llama_index.core import Document, SimpleDirectoryReader, VectorStoreIndex
 
@@ -38,9 +39,7 @@ def documents_from_manifest(
         documents.extend(docs)
 
     if not documents:
-        raise RuntimeError(
-            "No documents loaded. Add PDFs under data/papers/ matching manifest file_name."
-        )
+        warnings.append("No paper documents loaded from manifest.")
 
     return documents, warnings
 
@@ -49,11 +48,36 @@ def build_and_persist(
     manifest_path: Path,
     papers_dir: Path,
     persist_dir: Path,
+    materials_dir: Optional[Path] = None,
 ) -> VectorStoreIndex:
     documents, warnings = documents_from_manifest(manifest_path, papers_dir)
+    print(f"[*] Loaded {len(documents)} document chunks from papers. ")
     for w in warnings:
-        print(w)
-    index = VectorStoreIndex.from_documents(documents)
+        print(f"[!] {w}")
+
+    if materials_dir and materials_dir.is_dir() and any(materials_dir.iterdir()):
+        print(f"[*] Reading secondary data source from {materials_dir}...")
+        materials_docs = SimpleDirectoryReader(
+            input_dir=str(materials_dir),
+            required_exts=[".txt", ".md"]
+        ).load_data()
+
+        for doc in materials_docs:
+            doc.metadata["source_type"] = "course_material"
+            doc.metadata["file_name"] = doc.metadata.get("file_name", "unknown")
+
+        documents.extend(materials_docs)
+        print(f"[*] Loaded {len(materials_docs)} document chunks from course materials.")
+    else:
+        print(f"[*] No secondary materials found in {materials_dir}. Skipping.")
+
+    if not documents:
+        raise RuntimeError(
+            "No documents loaded. Add PDFs matching manifest or add text files to materials directory."
+        )
+
+    print("[*] Building vector store index...")
+    index = VectorStoreIndex.from_documents(documents, show_progress=True)
     persist_dir.mkdir(parents=True, exist_ok=True)
     index.storage_context.persist(persist_dir=str(persist_dir))
     return index

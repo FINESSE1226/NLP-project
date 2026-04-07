@@ -24,9 +24,10 @@ def main() -> int:
     from scholarlens.indexing import build_and_persist
     from scholarlens.ollama_config import apply_ollama_settings
 
-    parser = argparse.ArgumentParser(description="Build and persist RAG index from manifest.")
+    parser = argparse.ArgumentParser(description="Build and persist RAG index from manifest and materials.")
     parser.add_argument("--manifest", type=Path, default=root / "data" / "papers" / "manifest.csv")
     parser.add_argument("--papers-dir", type=Path, default=root / "data" / "papers")
+    parser.add_argument("--materials-dir", type=Path, default=root / "data" / "course_materials")
     parser.add_argument("--persist-dir", type=Path, default=root / "storage" / "index")
     parser.add_argument("--base-url", default="http://127.0.0.1:11434")
     parser.add_argument("--llm-model", default="mistral")
@@ -43,9 +44,14 @@ def main() -> int:
         chunk_overlap=args.chunk_overlap,
     )
 
-    print(f"Building index from {args.manifest} -> {args.persist_dir} ...")
-    build_and_persist(args.manifest, args.papers_dir, args.persist_dir)
-    print("Done.")
+    print(f"[*] Building index from {args.manifest} and {args.materials_dir} -> {args.persist_dir} ...")
+    build_and_persist(
+        manifest_path=args.manifest,
+        papers_dir=args.papers_dir,
+        persist_dir=args.persist_dir,
+        materials_dir=args.materials_dir,
+    )
+    print("[*] Done.")
     return 0
 
 

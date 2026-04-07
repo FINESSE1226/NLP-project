@@ -28,11 +28,11 @@ def check_ollama(base_url: str, timeout_s: float = 3.0) -> tuple[bool, str]:
         names = [m.get("name", "") for m in body.get("models", [])]
         if not names:
             return False, "Ollama reachable but no models installed (run: ollama pull mistral && ollama pull nomic-embed-text)"
-        return True, f"Ollama OK; models: {', '.join(names[:8])}{'鈥? if len(names) > 8 else ''}"
+        return True, f"Ollama OK; models: {', '.join(names[:8])}{'...' if len(names) > 8 else ''}"
     except urllib.error.URLError as e:
         return False, f"Ollama not reachable at {base_url}: {e}"
     except TimeoutError:
-        return False, f"Ollama request timed out ({timeout_s}s) 鈥?is the service running?"
+        return False, f"Ollama request timed out ({timeout_s}s) - is the service running?"
 
 
 def main() -> int:
@@ -67,7 +67,7 @@ def main() -> int:
     pdfs = list(papers.glob("*.pdf")) if papers.is_dir() else []
     print(f"PDFs under data/papers: {len(pdfs)}")
     if not pdfs:
-        issues.append("No PDFs in data/papers 鈥?add at least one .pdf for smoke test")
+        issues.append("No PDFs in data/papers - add at least one .pdf for smoke test")
 
     manifest = papers / "manifest.csv"
     if manifest.is_file():
