@@ -67,7 +67,9 @@ def main() -> int:
 
         results.append({
             "question_id": q["question_id"],
+            "type": q.get("type", "factual"),
             "question": q["question"],
+            "gold_answer": q.get("gold_answer", ""),
             "generated_answer": answer
         })
 

@@ -10,6 +10,47 @@ from llama_index.core import Document, SimpleDirectoryReader, VectorStoreIndex
 from scholarlens.manifest import PaperRecord, load_manifest, resolve_paper_paths
 
 
+def load_urls_from_file(urls_file: Path) -> list[str]:
+    """Load URLs from a text file, ignoring comments and blank lines."""
+    if not urls_file.is_file():
+        return []
+    urls = []
+    with open(urls_file, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#"):
+                urls.append(line)
+    return urls
+
+
+def documents_from_urls(urls: list[str]) -> tuple[list[Document], list[str]]:
+    """Load documents from web URLs using BeautifulSoupWebReader."""
+    if not urls:
+        return [], []
+
+    warnings: list[str] = []
+    documents: list[Document] = []
+
+    try:
+        from llama_index.readers.web import BeautifulSoupWebReader
+        loader = BeautifulSoupWebReader()
+
+        for url in urls:
+            try:
+                docs = loader.load_data(urls=[url])
+                for doc in docs:
+                    doc.metadata["source_type"] = "web"
+                    doc.metadata["source_url"] = url
+                documents.extend(docs)
+            except Exception as e:
+                warnings.append(f"Failed to load {url}: {e}")
+
+    except ImportError:
+        warnings.append("llama-index-readers-web not installed. Run: pip install llama-index-readers-web")
+
+    return documents, warnings
+
+
 def documents_from_manifest(
     manifest_path: Path,
     papers_dir: Path,
@@ -49,9 +90,10 @@ def build_and_persist(
     papers_dir: Path,
     persist_dir: Path,
     materials_dir: Optional[Path] = None,
+    urls_file: Optional[Path] = None,
 ) -> VectorStoreIndex:
     documents, warnings = documents_from_manifest(manifest_path, papers_dir)
-    print(f"[*] Loaded {len(documents)} document chunks from papers. ")
+    print(f"[*] Loaded {len(documents)} document chunks from papers.")
     for w in warnings:
         print(f"[!] {w}")
 
@@ -71,9 +113,22 @@ def build_and_persist(
     else:
         print(f"[*] No secondary materials found in {materials_dir}. Skipping.")
 
+    if urls_file:
+        urls = load_urls_from_file(urls_file)
+        if urls:
+            print(f"[*] Loading {len(urls)} web URLs from {urls_file}...")
+            web_docs, web_warnings = documents_from_urls(urls)
+            for w in web_warnings:
+                print(f"[!] {w}")
+            if web_docs:
+                documents.extend(web_docs)
+                print(f"[*] Loaded {len(web_docs)} document chunks from web sources.")
+        else:
+            print(f"[*] No URLs found in {urls_file}. Skipping web sources.")
+
     if not documents:
         raise RuntimeError(
-            "No documents loaded. Add PDFs matching manifest or add text files to materials directory."
+            "No documents loaded. Add PDFs matching manifest, text files to materials directory, or URLs to urls.txt."
         )
 
     print("[*] Building vector store index...")
