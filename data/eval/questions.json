@@ -208,5 +208,75 @@
     "type": "reasoning",
     "target_paper_id": null,
     "gold_answer": "Strategies include: grounding outputs in retrieved evidence (RAG), using reflection tokens to verify support (Self-RAG), and training models to abstain when uncertain."
+  },
+  {
+    "question_id": "q31",
+    "question": "What is the core idea of Chain-of-Thought prompting according to Wei et al. (2022)?",
+    "type": "factual",
+    "target_paper_id": "wei2022_cot",
+    "gold_answer": "Chain-of-Thought prompting improves reasoning by asking the model to generate intermediate reasoning steps before the final answer."
+  },
+  {
+    "question_id": "q32",
+    "question": "What does TruthfulQA measure in large language models?",
+    "type": "factual",
+    "target_paper_id": "lin2022_truthfulqa",
+    "gold_answer": "TruthfulQA measures whether model responses are truthful and resistant to common human misconceptions and false beliefs."
+  },
+  {
+    "question_id": "q33",
+    "question": "What problem is HaluEval designed to benchmark?",
+    "type": "factual",
+    "target_paper_id": "li2023_halueval",
+    "gold_answer": "HaluEval benchmarks hallucination behavior in LLM outputs by evaluating whether generated content is unsupported or fabricated."
+  },
+  {
+    "question_id": "q34",
+    "question": "What is FActScore used to evaluate?",
+    "type": "factual",
+    "target_paper_id": "min2023_factscore",
+    "gold_answer": "FActScore evaluates fine-grained factual precision in long-form generation using atomic fact-level verification."
+  },
+  {
+    "question_id": "q35",
+    "question": "According to the RAG survey, what is the main benefit of retrieval-augmented generation over parametric-only models?",
+    "type": "reasoning",
+    "target_paper_id": "gao2023_rag_survey",
+    "gold_answer": "RAG grounds generation in external knowledge sources, improving factuality, updatability, and domain adaptation compared with parametric-only models."
+  },
+  {
+    "question_id": "q36",
+    "question": "What is SmoothQuant's primary contribution for deploying large language models?",
+    "type": "factual",
+    "target_paper_id": "xiao2023_smoothquant",
+    "gold_answer": "SmoothQuant enables accurate and efficient post-training quantization by migrating activation outliers into weights, reducing quantization error."
+  },
+  {
+    "question_id": "q37",
+    "question": "Compare how Self-RAG and HaluEval address hallucination in LLM systems.",
+    "type": "cross_paper",
+    "target_paper_id": null,
+    "gold_answer": "Self-RAG introduces a generation-time mitigation mechanism through reflection and retrieval control, while HaluEval provides a benchmark to detect and measure hallucinations after generation."
+  },
+  {
+    "question_id": "q38",
+    "question": "How are TruthfulQA and FActScore different in their evaluation focus?",
+    "type": "cross_paper",
+    "target_paper_id": null,
+    "gold_answer": "TruthfulQA focuses on truthfulness against misconceptions in QA settings, while FActScore focuses on atomic factual precision in long-form generated text."
+  },
+  {
+    "question_id": "q39",
+    "question": "How can Chain-of-Thought prompting complement retrieval-augmented generation in difficult reasoning tasks?",
+    "type": "reasoning",
+    "target_paper_id": null,
+    "gold_answer": "RAG supplies relevant evidence and Chain-of-Thought structures multi-step reasoning over that evidence, which can improve answer quality on complex tasks."
+  },
+  {
+    "question_id": "q40",
+    "question": "Compare Llama 2 and Mistral 7B in terms of why they are relevant as base models for local RAG pipelines.",
+    "type": "cross_paper",
+    "target_paper_id": null,
+    "gold_answer": "Both are open-weight models suitable for local deployment; they differ in architecture, training choices, and efficiency trade-offs that affect latency, cost, and quality in RAG systems."
   }
 ]

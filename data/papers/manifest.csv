@@ -1,3 +1,11 @@
 paper_id,title,year,file_name,source_url
 lewis2020_rag,Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,2020,lewis2020_rag.pdf,https://arxiv.org/abs/2005.11401
 asai2024_selfrag,"Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection",2024,asai2024_selfrag.pdf,https://arxiv.org/abs/2310.11511
+wei2022_cot,"Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",2022,wei2022_cot.pdf,https://arxiv.org/abs/2201.11903
+lin2022_truthfulqa,"TruthfulQA: Measuring How Models Mimic Human Falsehoods",2022,lin2022_truthfulqa.pdf,https://arxiv.org/abs/2109.07958
+li2023_halueval,"HaluEval: A Large-Scale Hallucination Evaluation Benchmark for Large Language Models",2023,li2023_halueval.pdf,https://arxiv.org/abs/2305.11747
+min2023_factscore,"FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation",2023,min2023_factscore.pdf,https://arxiv.org/abs/2305.14251
+touvron2023_llama2,"Llama 2: Open Foundation and Fine-Tuned Chat Models",2023,touvron2023_llama2.pdf,https://arxiv.org/abs/2307.09288
+jiang2023_mistral,Mistral 7B,2023,jiang2023_mistral.pdf,https://arxiv.org/abs/2310.06825
+gao2023_rag_survey,"Retrieval-Augmented Generation for Large Language Models: A Survey",2023,gao2023_rag_survey.pdf,https://arxiv.org/abs/2312.10997
+xiao2023_smoothquant,"SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models",2023,xiao2023_smoothquant.pdf,https://arxiv.org/abs/2211.10438
