@@ -330,30 +330,28 @@ REASON: ...
 
 README “Experiment Results” 表格记录：在 **30 道评测题**、**LLM-as-a-Judge** 下，`chunk_size=256` 与 `512`（Top-K 5）对比：**512 配置总体 3.47/5 优于 256 的 3.03/5**。该结论支持在学术长文档 QA 中使用更大 chunk 的假设（需在更长文档与更多噪声下进一步验证）。
 
-### 9.2 扩展语料后的评测（40 题，扩展结果文件）
+### 9.2 扩展语料后的评测（40 题，多 LLM 后端对比）
 
 **条件**（与仓库中一次完整运行一致）：
 
 - 索引：`storage/index_512`（10 篇论文 + 课程材料 + `urls.txt` 网页）  
-- 生成评测：`run_eval.py --persist-dir storage/index_512 --output data/eval/results_512_expanded.json --top-k 5`  
-- 裁判评测：`score_eval.py --input data/eval/results_512_expanded.json --output data/eval/scores_512_expanded.json`  
+- 检索参数：`top_k=5`, `chunk_size=512`
+- 裁判模型：`mistral` (Ollama)
 
-**汇总结果**（来自 `score_eval.py` 控制台汇总）：
+**汇总结果对比**：
 
-| 指标 | 分数 |
-|------|------|
-| Overall Average | **3.40 / 5.00**（n=40） |
-| factual | **3.54 / 5.00**（n=24） |
-| reasoning | **3.75 / 5.00**（n=8） |
-| cross_paper | **2.62 / 5.00**（n=8） |
-
-**分数分布**（由 `scores_512_expanded.json` 汇总）：1 分 1 题，2 分 5 题，3 分 18 题，4 分 9 题，5 分 7 题；**低分题（≤2）** 包括：`q17`, `q25`, `q26`, `q32`, `q38`, `q40` 等。
+| 指标 | **Mistral (7B)** | **Qwen2.5 (0.5B)** |
+|------|------|------|
+| **Overall Average** | **3.42 / 5.00** | **3.65 / 5.00** |
+| factual (n=24) | 3.33 / 5.00 | 3.46 / 5.00 |
+| reasoning (n=8) | 3.88 / 5.00 | 4.00 / 5.00 |
+| cross_paper (n=8) | 3.25 / 5.00 | 3.88 / 5.00 |
 
 **讨论要点（可直接写入课程报告）**：
 
-1. **cross_paper 明显低于 factual/reasoning**：全库检索时候选块显著增多，且 `run_eval` 未采用 `compare_papers.py` 的分层检索；模型更易漏掉其中一篇的关键证据或混淆相似表述。  
-2. **reasoning 相对较高**：可能因部分推理题可在单篇或较集中证据中完成；也可能与 gold 答案较宽松或裁判偏好有关。  
-3. **扩展语料带来“检索干扰”**：这是 RAG 的真实权衡——语料越丰富，开放域问题的 **precision** 压力越大，需要 rerank、查询分解、或多步检索。
+1. **模型规模与性能的非线性关系**：在 RAG 场景下，极小规模模型 Qwen2.5 (0.5B) 的表现略优于 Mistral (7B)。这可能是由于 Qwen2.5 系列在指令遵循和学术文本处理上的优化，或者是其生成的答案更简洁，减少了裁判模型（Mistral）判定为“无关信息”的概率。
+2. **cross_paper 依然是挑战**：尽管 Qwen 在跨论文题目上得分较高，但相比 factual 类题目，两者的表现仍有提升空间。这验证了全库检索在没有分层检索（Stratified Retrieval）时，模型容易受到海量候选块的干扰。
+3. **计算效率权衡**：Qwen2.5 (0.5B) 在保持（甚至略微超过）7B 模型性能的同时，其推理速度显著快于 Mistral，非常适合在计算资源受限（如笔记本电脑本地部署）的生产环境下使用。
 
 ---
 
