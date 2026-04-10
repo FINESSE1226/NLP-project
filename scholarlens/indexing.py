@@ -2,12 +2,45 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Optional
 
 from llama_index.core import Document, SimpleDirectoryReader, VectorStoreIndex
 
 from scholarlens.manifest import PaperRecord, load_manifest, resolve_paper_paths
+
+
+_PDF_BINARY_PATTERNS = (
+    r"/Filter",
+    r"/FlateDecode",
+    r"\bstream\b",
+    r"\bendstream\b",
+    r"\bxref\b",
+    r"\btrailer\b",
+    r"%PDF-",
+)
+
+
+def _looks_like_binary_pdf_text(text: str) -> bool:
+    """Heuristic detection for raw PDF object-stream leakage."""
+    if not text:
+        return True
+    joined_patterns = "|".join(_PDF_BINARY_PATTERNS)
+    if re.search(joined_patterns, text, flags=re.IGNORECASE):
+        return True
+
+    symbol_count = sum(1 for ch in text if not ch.isalnum() and not ch.isspace())
+    symbol_ratio = symbol_count / max(len(text), 1)
+    return symbol_ratio > 0.45
+
+
+def _clean_loaded_text(text: str) -> str:
+    """Normalize whitespace and remove control characters."""
+    text = text.replace("\uFFFD", " ").replace("\x00", " ")
+    text = re.sub(r"[\x00-\x08\x0b-\x1f\x7f]", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
 
 
 def load_urls_from_file(urls_file: Path) -> list[str]:
@@ -66,9 +99,26 @@ def documents_from_manifest(
 
     documents: list[Document] = []
     for rec, pdf_path in resolved:
-        docs = SimpleDirectoryReader(input_files=[str(pdf_path)]).load_data()
+        docs: list[Document] = []
+        try:
+            from llama_index.readers.file import PDFReader
+
+            docs = PDFReader().load_data(file=pdf_path)
+        except Exception:
+            # Fallback if PDFReader is unavailable.
+            docs = SimpleDirectoryReader(input_files=[str(pdf_path)]).load_data()
+
+        cleaned_docs: list[Document] = []
+        skipped_for_noise = 0
         for doc in docs:
-            doc.metadata.update(
+            raw_text = getattr(doc, "text", "")
+            clean_text = _clean_loaded_text(raw_text)
+            if len(clean_text) < 30 or _looks_like_binary_pdf_text(clean_text):
+                skipped_for_noise += 1
+                continue
+
+            metadata = dict(getattr(doc, "metadata", {}) or {})
+            metadata.update(
                 {
                     "paper_id": rec.paper_id,
                     "title": rec.title,
@@ -77,7 +127,13 @@ def documents_from_manifest(
                     "file_name": rec.file_name,
                 }
             )
-        documents.extend(docs)
+            cleaned_docs.append(Document(text=clean_text, metadata=metadata))
+
+        if skipped_for_noise:
+            warnings.append(
+                f"Skipped {skipped_for_noise} noisy chunks while reading {rec.file_name}"
+            )
+        documents.extend(cleaned_docs)
 
     if not documents:
         warnings.append("No paper documents loaded from manifest.")
